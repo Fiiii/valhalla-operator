@@ -40,6 +40,17 @@ func (builder *JobBuilder) Update(object client.Object) error {
 			},
 			Spec: corev1.PodSpec{
 				RestartPolicy: corev1.RestartPolicyOnFailure,
+				Tolerations: []corev1.Toleration{
+					{
+						Key:      "dedicated",
+						Operator: corev1.TolerationOpEqual,
+						Value:    "valhalla",
+						Effect:   corev1.TaintEffectNoSchedule,
+					},
+				},
+				NodeSelector: map[string]string{
+					"dedicated": "valhalla",
+				},
 				Containers: []corev1.Container{
 					{
 						Name:  "map-builder",

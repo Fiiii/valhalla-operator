@@ -29,7 +29,7 @@ BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 #
 # For example, running 'make bundle-build bundle-push catalog-build catalog-push' will build and push both
 # itayankri/valhalla-bundle:$VERSION and itayankri/valhalla-catalog:$VERSION.
-IMAGE_TAG_BASE ?= itayankri/valhalla-operator
+IMAGE_TAG_BASE ?= us-central1-docker.pkg.dev/busright-stg/busright-valhalla-k8s-operator-repo
 
 # BUNDLE_IMG defines the image:tag used for the bundle.
 # You can use it as an arg. (E.g make bundle-build BUNDLE_IMG=<some-registry>/<project-name-bundle>:<tag>)
@@ -40,7 +40,7 @@ TEST_IMG ?= $(IMAGE_TAG_BASE):$(shell git rev-parse --short HEAD)
 
 # Image URL to use all building/pushing image targets
 ifeq ($(ENV), production)
-IMG ?= itayankri/valhalla-operator:latest
+IMG ?= us-central1-docker.pkg.dev/busright-stg/busright-valhalla-k8s-operator-repo:latest
 else
 IMG ?= $(TEST_IMG)
 endif

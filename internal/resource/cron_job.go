@@ -44,6 +44,17 @@ func (builder *CronJobBuilder) Update(object client.Object) error {
 				Template: corev1.PodTemplateSpec{
 					Spec: corev1.PodSpec{
 						RestartPolicy: corev1.RestartPolicyOnFailure,
+						Tolerations: []corev1.Toleration{
+							{
+								Key:      "dedicated",
+								Operator: corev1.TolerationOpEqual,
+								Value:    "valhalla",
+								Effect:   corev1.TaintEffectNoSchedule,
+							},
+						},
+						NodeSelector: map[string]string{
+							"dedicated": "valhalla",
+						},
 						Containers: []corev1.Container{
 							{
 								Name:  builder.Instance.ChildResourceName(CronJobSuffix),
